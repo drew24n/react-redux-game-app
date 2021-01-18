@@ -1,4 +1,4 @@
-import {gameAPI} from "../api/GameAPI";
+import {gameAPI} from "../api/gameAPI";
 import {addNewWinner, setSetting, setWinners} from "./gameActions";
 
 export const getSettings = () => async (dispatch) => {

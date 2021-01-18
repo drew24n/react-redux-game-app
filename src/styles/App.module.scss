@@ -1,1 +1,26 @@
-.container {}
+.container {
+  display: grid;
+  grid-template-rows: 75px 1fr;
+  min-height: 100vh;
+  min-width: 320px;
+
+  header {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .main_section {
+    margin: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(50%, auto);
+    grid-gap: 5px;
+  }
+
+  @media (width <= 768px) {
+    .main_section {
+      grid-template-columns: 1fr;
+    }
+  }
+}

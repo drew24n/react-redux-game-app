@@ -1,0 +1,21 @@
+.container {
+  border: 3px solid #d3d3d3;
+  overflow-y: auto;
+
+  h3 {
+    text-align: center;
+  }
+
+  .winner {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    background-color: #d3d3d3;
+
+    span {
+      line-height: 40px;
+      height: 40px;
+      padding: 5px;
+    }
+  }
+}

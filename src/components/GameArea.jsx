@@ -1,6 +1,7 @@
 import {useDispatch} from "react-redux";
 import {getSettings} from "../redux/gameThunks";
 import {useEffect} from "react";
+import styles from '../styles/GameArea.module.scss';
 
 export function GameArea() {
     const dispatch = useDispatch()
@@ -10,6 +11,6 @@ export function GameArea() {
     }, [dispatch])
 
     return (
-        <section>GameArea</section>
+        <section className={styles.container}/>
     )
 }

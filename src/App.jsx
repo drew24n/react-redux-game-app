@@ -8,8 +8,13 @@ export function App() {
 
     return (
         <main className={styles.container}>
-            <GameArea/>
-            <LeaderBoard/>
+            <header>
+                <h1>React game</h1>
+            </header>
+            <div className={styles.main_section}>
+                <GameArea/>
+                <LeaderBoard/>
+            </div>
         </main>
     )
 }
