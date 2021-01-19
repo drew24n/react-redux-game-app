@@ -1,5 +1,5 @@
 import styles from './styles/App.module.scss';
-import {GameArea} from "./components/GameArea";
+import {GameContainer} from "./components/GameContainer/GameContainer";
 import {LeaderBoard} from "./components/LeaderBoard";
 import {ErrorsHandler} from "./utils/ErrorsHandler";
 
@@ -12,7 +12,7 @@ export function App() {
                 <h1>React game</h1>
             </header>
             <div className={styles.main_section}>
-                <GameArea/>
+                <GameContainer/>
                 <LeaderBoard/>
             </div>
         </main>

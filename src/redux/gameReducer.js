@@ -4,6 +4,10 @@ const initialState = {
     settings: [],
     winners: [],
     playerName: '',
+    difficulty: {
+        field: 0,
+        delay: 0
+    },
     message: 'Message'
 }
 
@@ -25,10 +29,10 @@ export const gameReducer = (state = initialState, action) => {
             }
         case SET_DIFFICULTY:
             return {
-                ...state, settings: state.settings.map(s => {
-                    s.mode === action.mode ? s.active = true : s.active = false
-                    return s
-                })
+                ...state, difficulty: {
+                    field: action.field,
+                    delay: action.delay
+                }
             }
         case SET_PLAYER_NAME:
             return {
