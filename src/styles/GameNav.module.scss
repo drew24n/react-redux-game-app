@@ -1,0 +1,19 @@
+.container {
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px;
+  gap: 10px;
+
+  select, input, button {
+    max-width: fit-content;
+    outline: none;
+    background-color: #d3d3d3;
+  }
+
+  button, select {
+    cursor: pointer;
+  }
+}

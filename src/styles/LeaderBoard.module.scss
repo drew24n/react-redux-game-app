@@ -12,10 +12,17 @@
     margin: 10px;
     background-color: #d3d3d3;
 
+    span:last-child {
+      min-width: fit-content;
+    }
+
     span {
       line-height: 40px;
       height: 40px;
       padding: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
