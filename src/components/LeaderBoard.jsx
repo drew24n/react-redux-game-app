@@ -13,7 +13,7 @@ export function LeaderBoard() {
 
     return (
         <section className={styles.container}>
-            <h3>LeaderBoard</h3>
+            <h3>Leader Board</h3>
             {winners.map(w => <div className={styles.winner} key={w.id}>
                 <span>{w.winner}</span>
                 <span>{w.date}</span>

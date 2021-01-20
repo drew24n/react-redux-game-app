@@ -1,4 +1,7 @@
-import {ADD_NEW_WINNER, SET_DIFFICULTY, SET_MESSAGE, SET_PLAYER_NAME, SET_SETTINGS, SET_WINNERS} from "./gameActions";
+import {
+    ADD_NEW_WINNER, SET_DIFFICULTY, SET_GAME_COMPLETED, SET_GAME_RUNNING, SET_MESSAGE, SET_PLAYER_NAME, SET_SETTINGS,
+    SET_SQUARE_BLOCKS, SET_WINNERS
+} from "./gameActions";
 
 const initialState = {
     settings: [],
@@ -8,7 +11,10 @@ const initialState = {
         field: 0,
         delay: 0
     },
-    message: 'Message'
+    message: 'welcome',
+    isGameRunning: false,
+    isGameCompleted: false,
+    squareBlocks: []
 }
 
 export const gameReducer = (state = initialState, action) => {
@@ -41,6 +47,23 @@ export const gameReducer = (state = initialState, action) => {
         case SET_MESSAGE:
             return {
                 ...state, message: action.message
+            }
+        case SET_SQUARE_BLOCKS:
+            return {
+                ...state, squareBlocks: action.squareBlocks.map(item => ({
+                    squareNumber: item,
+                    isActive: false,
+                    isCompleted: false,
+                    points: 0
+                }))
+            }
+        case SET_GAME_RUNNING:
+            return {
+                ...state, isGameRunning: action.isGameRunning
+            }
+        case SET_GAME_COMPLETED:
+            return {
+                ...state, isGameCompleted: action.isGameCompleted
             }
         default:
             return state

@@ -1,6 +1,6 @@
 {
-  "short_name": "Game",
-  "name": "Simple game",
+  "short_name": "React Game",
+  "name": "React Game",
   "icons": [
     {
       "src": "favicon.ico",

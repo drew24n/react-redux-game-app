@@ -9,7 +9,7 @@ export function App() {
     return (
         <main className={styles.container}>
             <header>
-                <h1>React game</h1>
+                <h1>React Game</h1>
             </header>
             <div className={styles.main_section}>
                 <GameContainer/>

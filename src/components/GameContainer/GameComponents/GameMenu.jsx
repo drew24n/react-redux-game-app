@@ -4,7 +4,7 @@ import styles from '../../../styles/GameMenu.module.scss';
 import {getSettings} from "../../../redux/gameThunks";
 import {useEffect} from "react";
 
-export function GameMenu() {
+export function GameMenu({startGameHandler}) {
     const dispatch = useDispatch()
     const state = useSelector(state => state)
 
@@ -21,14 +21,16 @@ export function GameMenu() {
 
     return (
         <nav className={styles.container}>
-            <select onChange={selectDifficultyHandler}>
+            <select onChange={selectDifficultyHandler} disabled={state.isGameRunning}>
                 <option defaultChecked value={''}>Pick game mode</option>
                 {state.settings.map(s => <option key={s.mode} value={JSON.stringify(s)}>{s.mode}</option>)}
             </select>
-            <input type="text" placeholder={'Enter your name'} value={state.playerName}
-                   onChange={e => dispatch(setPlayerName(e.target.value))}
+            <input disabled={state.isGameRunning} type="text" placeholder={'Enter your name'} value={state.playerName}
+                   onChange={e => dispatch(setPlayerName(e.target.value.trim()))}
             />
-            <button>PLAY</button>
+            <button onClick={() => startGameHandler()} disabled={state.isGameRunning}>
+                {state.isGameCompleted ? 'PLAY AGAIN' : 'PLAY'}
+            </button>
         </nav>
     )
 }

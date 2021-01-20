@@ -1,1 +1,1 @@
-# Simple React game
+# React / Redux Game

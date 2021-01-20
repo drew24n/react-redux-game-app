@@ -7,7 +7,7 @@
   margin: 10px;
   gap: 10px;
 
-  select, input, button {
+  select, input {
     max-width: fit-content;
     outline: none;
     background-color: #d3d3d3;
@@ -15,5 +15,15 @@
 
   button, select {
     cursor: pointer;
+  }
+
+  button {
+    outline: none;
+    background-color: #d3d3d3;
+    width: 103px;
+
+    &:disabled {
+      cursor: default;
+    }
   }
 }
