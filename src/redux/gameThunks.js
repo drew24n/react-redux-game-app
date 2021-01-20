@@ -1,5 +1,5 @@
 import {gameAPI} from "../api/gameAPI";
-import {addNewWinner, setSetting, setWinners} from "./gameActions";
+import {setSetting, setWinners} from "./gameActions";
 
 export const getSettings = () => async (dispatch) => {
     try {
@@ -27,7 +27,7 @@ export const addWinner = (winner, date) => async (dispatch) => {
     try {
         const res = await gameAPI.addNewWinner(winner, date)
         if (res) {
-            dispatch(addNewWinner(winner, date))
+            dispatch(setWinners(res))
         }
     } catch (e) {
         alert(e)

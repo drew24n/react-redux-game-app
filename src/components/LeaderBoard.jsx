@@ -14,7 +14,7 @@ export function LeaderBoard() {
     return (
         <section className={styles.container}>
             <h3>Leader Board</h3>
-            {winners.map(w => <div className={styles.winner} key={w.id}>
+            {winners.slice(0).reverse().map(w => <div className={styles.winner} key={w.id}>
                 <span>{w.winner}</span>
                 <span>{w.date}</span>
             </div>)}

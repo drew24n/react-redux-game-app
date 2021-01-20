@@ -26,10 +26,28 @@ export function GameSquare() {
         gridTemplateRows: `repeat(${Math.sqrt(roundBlocksCount)}, 1fr)`,
     }
 
+    function setSquareColor(isActive, isCompleted, points) {
+        let color
+        if (!isActive && !isCompleted) {
+            color = 'white'
+        } else if (isActive && !isCompleted) {
+            color = 'blue'
+        } else if (isCompleted && points === 1) {
+            color = 'green'
+        } else if (isCompleted && !points) {
+            color = 'red'
+        }
+        return color
+    }
+
     return (
         <div className={styles.container}>
             <div style={gridConfig} className={styles.squareGrid}>
-                {squareBlocks.map(elem => <div className={styles.squareItem} key={elem}/>)}
+                {state.squareBlocks.map(square => (
+                    <div style={{backgroundColor: setSquareColor(square.isActive, square.isCompleted, square.points)}}
+                         className={styles.squareItem} key={square.squareNumber}
+                    />
+                ))}
             </div>
         </div>
     )

@@ -1,6 +1,13 @@
 import {
-    ADD_NEW_WINNER, SET_DIFFICULTY, SET_GAME_COMPLETED, SET_GAME_RUNNING, SET_MESSAGE, SET_PLAYER_NAME, SET_SETTINGS,
-    SET_SQUARE_BLOCKS, SET_WINNERS
+    SET_ACTIVE_SQUARE, SET_COMPLETED_SQUARE,
+    SET_DIFFICULTY,
+    SET_GAME_COMPLETED,
+    SET_GAME_RUNNING,
+    SET_MESSAGE,
+    SET_PLAYER_NAME, SET_POINTS,
+    SET_SETTINGS,
+    SET_SQUARE_BLOCKS,
+    SET_WINNERS
 } from "./gameActions";
 
 const initialState = {
@@ -28,10 +35,6 @@ export const gameReducer = (state = initialState, action) => {
         case SET_WINNERS:
             return {
                 ...state, winners: [...action.winners]
-            }
-        case ADD_NEW_WINNER:
-            return {
-                ...state, winners: [...state.winners, ...action.winner]
             }
         case SET_DIFFICULTY:
             return {
@@ -64,6 +67,33 @@ export const gameReducer = (state = initialState, action) => {
         case SET_GAME_COMPLETED:
             return {
                 ...state, isGameCompleted: action.isGameCompleted
+            }
+        case SET_ACTIVE_SQUARE:
+            return {
+                ...state, squareBlocks: state.squareBlocks.map(square => {
+                    if (square.squareNumber === action.squareNumber) {
+                        square.isActive = action.isActive
+                    }
+                    return square
+                })
+            }
+        case SET_COMPLETED_SQUARE:
+            return {
+                ...state, squareBlocks: state.squareBlocks.map(square => {
+                    if (square.squareNumber === action.squareNumber) {
+                        square.isCompleted = action.isCompleted
+                    }
+                    return square
+                })
+            }
+        case SET_POINTS:
+            return {
+                ...state, squareBlocks: state.squareBlocks.map(square => {
+                    if (square.squareNumber === action.squareNumber) {
+                        square.points = action.points
+                    }
+                    return square
+                })
             }
         default:
             return state
