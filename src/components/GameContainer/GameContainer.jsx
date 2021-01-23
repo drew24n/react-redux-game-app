@@ -6,15 +6,17 @@ import {
     resetSquares, setActiveSquare, setCompletedSquare, setIsGameCompleted,
     setIsGameRunning, setMessage
 } from "../../redux/gameActions";
+import {store} from "../../redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import {addWinner} from "../../redux/gameThunks";
+import {getRandom} from "../../utils/getRandom";
 
 export function GameContainer() {
     const state = useSelector(state => state)
     const dispatch = useDispatch()
 
-    function startGameHandler() {
+    async function startGameHandler() {
         if (!state.difficulty.field || !state.playerName) {
             dispatch(setMessage('choose difficulty and name'))
             return
@@ -28,16 +30,17 @@ export function GameContainer() {
         const delay = state.difficulty.delay
 
         const activateSquares = setInterval(() => {
-            const uncompletedSquare = state.squareBlocks.find(b => !b.isCompleted)
-            dispatch(setActiveSquare(uncompletedSquare.squareNumber, true))
+            const randomSquareNumber = getRandom(state.squareBlocks).next().value.squareNumber
+            dispatch(setActiveSquare(randomSquareNumber, true))
             setTimeout(() => {
-                dispatch(setCompletedSquare(uncompletedSquare.squareNumber, true))
-                dispatch(setActiveSquare(uncompletedSquare.squareNumber, false))
+                dispatch(setCompletedSquare(randomSquareNumber, true))
+                dispatch(setActiveSquare(randomSquareNumber, false))
                 defineWinner()
             }, delay)
-        }, delay)
+        }, delay + 500)
 
         function defineWinner() {
+            const state = store.getState()
             const completedSquaresCount = state.squareBlocks.filter(square => square.isCompleted).length
             const userPoints = state.squareBlocks.reduce((total, square) => {
                 return total + square.points
@@ -55,7 +58,7 @@ export function GameContainer() {
                 finishGame()
             }
             if (userPoints === state.squareBlocks.length / 2 && completedSquaresCount === state.squareBlocks.length) {
-                dispatch(setMessage("Draw! (Ничья!)"))
+                dispatch(setMessage("It's a draw! :)"))
                 finishGame()
             }
         }

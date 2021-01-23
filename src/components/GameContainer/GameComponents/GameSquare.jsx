@@ -34,13 +34,13 @@ export function GameSquare() {
     function setSquareColor(isActive, isCompleted, points) {
         let color
         if (!isActive && !isCompleted) {
-            color = 'white'
+            color = '#fff'
         } else if (points === 1) {
-            color = 'green'
+            color = '#008000'
         } else if (isActive && !isCompleted) {
-            color = 'blue'
+            color = '#0000ff'
         } else if (isCompleted && !points) {
-            color = 'red'
+            color = '#ff0000'
         }
         return color
     }
