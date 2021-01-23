@@ -3,11 +3,8 @@ import {GameMenu} from "./GameComponents/GameMenu";
 import {GameMessage} from "./GameComponents/GameMessage";
 import {GameSquare} from "./GameComponents/GameSquare";
 import {
-    setActiveSquare,
-    setCompletedSquare,
-    setIsGameCompleted,
-    setIsGameRunning,
-    setMessage, setPoints
+    resetSquares, setActiveSquare, setCompletedSquare, setIsGameCompleted,
+    setIsGameRunning, setMessage
 } from "../../redux/gameActions";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
@@ -17,57 +14,61 @@ export function GameContainer() {
     const state = useSelector(state => state)
     const dispatch = useDispatch()
 
-    const delay = state.difficulty.delay
-    const timeOut = state.squareBlocks.length * state.difficulty.delay
-
-    async function startGameHandler() {
+    function startGameHandler() {
         if (!state.difficulty.field || !state.playerName) {
             dispatch(setMessage('choose difficulty and name'))
             return
         }
 
+        dispatch(resetSquares())
         dispatch(setIsGameRunning(true))
         dispatch(setIsGameCompleted(false))
         dispatch(setMessage('Good luck!'))
 
-        //testing logic
-        const intervalId = setInterval(() => {
+        const delay = state.difficulty.delay
+
+        const activateSquares = setInterval(() => {
             const uncompletedSquare = state.squareBlocks.find(b => !b.isCompleted)
             dispatch(setActiveSquare(uncompletedSquare.squareNumber, true))
-            dispatch(setCompletedSquare(uncompletedSquare.squareNumber, true))
-            dispatch(setPoints(uncompletedSquare.squareNumber, 1))
+            setTimeout(() => {
+                dispatch(setCompletedSquare(uncompletedSquare.squareNumber, true))
+                dispatch(setActiveSquare(uncompletedSquare.squareNumber, false))
+                defineWinner()
+            }, delay)
         }, delay)
-        /////////////////////////////////////////////
-
-        await new Promise(resolve => setTimeout(() => {
-            clearInterval(intervalId)
-            resolve()
-        }, timeOut))
-
 
         function defineWinner() {
+            const completedSquaresCount = state.squareBlocks.filter(square => square.isCompleted).length
             const userPoints = state.squareBlocks.reduce((total, square) => {
                 return total + square.points
             }, 0)
+            const computerPoints = state.squareBlocks.filter(square => square.isCompleted && !square.points).length
 
-            if (state.squareBlocks.length / 2 < userPoints) {
-                saveWinner(state.playerName)
-                return `${state.playerName}, you are a winner!`
-            } else if (state.squareBlocks.length / 2 > userPoints) {
-                saveWinner('Computer')
-                return 'Computer is a winner!'
-            } else {
-                return "It's a draw!!!"
+            if (userPoints > state.squareBlocks.length / 2) {
+                saveResult(state.playerName)
+                dispatch(setMessage(`${state.playerName}, you are a winner!`))
+                finishGame()
             }
-
-            function saveWinner(name) {
-                dispatch(addWinner(name, moment().format("HH:mm; DD MMMM YYYY")))
+            if (computerPoints > state.squareBlocks.length / 2) {
+                saveResult('Computer')
+                dispatch(setMessage('Computer is a winner!'))
+                finishGame()
+            }
+            if (userPoints === state.squareBlocks.length / 2 && completedSquaresCount === state.squareBlocks.length) {
+                dispatch(setMessage("Draw! (Ничья!)"))
+                finishGame()
             }
         }
 
-        dispatch(setIsGameRunning(false))
-        dispatch(setIsGameCompleted(true))
-        dispatch(setMessage(defineWinner()))
+        function finishGame() {
+            dispatch(setIsGameRunning(false))
+            dispatch(setIsGameCompleted(true))
+            clearInterval(activateSquares)
+        }
+
+        function saveResult(name) {
+            dispatch(addWinner(name, moment().format("HH:mm; DD MMMM YYYY")))
+        }
     }
 
     return (

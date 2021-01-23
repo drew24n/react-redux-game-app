@@ -1,4 +1,5 @@
 import {
+    RESET_SQUARES,
     SET_ACTIVE_SQUARE, SET_COMPLETED_SQUARE,
     SET_DIFFICULTY,
     SET_GAME_COMPLETED,
@@ -92,6 +93,14 @@ export const gameReducer = (state = initialState, action) => {
                     if (square.squareNumber === action.squareNumber) {
                         square.points = action.points
                     }
+                    return square
+                })
+            }
+        case RESET_SQUARES:
+            return {
+                ...state, squareBlocks: state.squareBlocks.map(square => {
+                    square.isCompleted = false
+                    square.points = 0
                     return square
                 })
             }
