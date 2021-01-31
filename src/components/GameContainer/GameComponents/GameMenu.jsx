@@ -20,7 +20,7 @@ export function GameMenu({startGameHandler}) {
     }
 
     return (
-        <nav className={styles.container}>
+        <form className={styles.container}>
             <select onChange={selectDifficultyHandler} disabled={state.isGameRunning}>
                 <option defaultChecked value={''}>Pick game mode</option>
                 {state.settings.map(s => <option key={s.mode} value={JSON.stringify(s)}>{s.mode}</option>)}
@@ -31,6 +31,6 @@ export function GameMenu({startGameHandler}) {
             <button onClick={() => startGameHandler()} disabled={state.isGameRunning}>
                 {state.isGameCompleted ? 'PLAY AGAIN' : 'PLAY'}
             </button>
-        </nav>
+        </form>
     )
 }

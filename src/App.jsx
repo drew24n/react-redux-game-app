@@ -1,10 +1,12 @@
 import styles from './styles/App.module.scss';
 import {GameContainer} from "./components/GameContainer/GameContainer";
 import {LeaderBoard} from "./components/LeaderBoard";
-import {ErrorsHandler} from "./utils/ErrorsHandler";
+import {useEffect} from "react";
 
 export function App() {
-    ErrorsHandler()
+    useEffect(() => {
+        window.addEventListener("unhandledrejection", error => alert(error))
+    }, [])
 
     return (
         <main className={styles.container}>

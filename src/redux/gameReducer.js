@@ -71,37 +71,35 @@ export const gameReducer = (state = initialState, action) => {
             }
         case SET_ACTIVE_SQUARE:
             return {
-                ...state, squareBlocks: state.squareBlocks.map(square => {
+                ...state, squareBlocks: [...state.squareBlocks].map(square => {
                     if (square.squareNumber === action.squareNumber) {
-                        square.isActive = action.isActive
+                        return {...square, isActive: action.isActive}
                     }
                     return square
                 })
             }
         case SET_COMPLETED_SQUARE:
             return {
-                ...state, squareBlocks: state.squareBlocks.map(square => {
+                ...state, squareBlocks: [...state.squareBlocks].map(square => {
                     if (square.squareNumber === action.squareNumber) {
-                        square.isCompleted = action.isCompleted
+                        return {...square, isCompleted: action.isCompleted}
                     }
                     return square
                 })
             }
         case SET_POINTS:
             return {
-                ...state, squareBlocks: state.squareBlocks.map(square => {
+                ...state, squareBlocks: [...state.squareBlocks].map(square => {
                     if (square.squareNumber === action.squareNumber) {
-                        square.points = action.points
+                        return {...square, points: action.points}
                     }
                     return square
                 })
             }
         case RESET_SQUARES:
             return {
-                ...state, squareBlocks: state.squareBlocks.map(square => {
-                    square.isCompleted = false
-                    square.points = 0
-                    return square
+                ...state, squareBlocks: [...state.squareBlocks].map(square => {
+                    return {...square, isCompleted: false, points: 0}
                 })
             }
         default:
