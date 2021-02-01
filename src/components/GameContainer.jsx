@@ -1,14 +1,14 @@
-import styles from '../../styles/GameContainer.module.scss';
+import styles from '../styles/GameContainer.module.scss';
 import {GameMenu} from "./GameComponents/GameMenu";
 import {GameMessage} from "./GameComponents/GameMessage";
 import {GameSquare} from "./GameComponents/GameSquare";
 import {
     resetSquares, setActiveSquare, setCompletedSquare, setIsGameCompleted,
     setIsGameRunning, setMessage
-} from "../../redux/gameActions";
+} from "../redux/gameActions";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
-import {addWinner} from "../../redux/gameThunks";
+import {addWinner} from "../redux/gameThunks";
 
 export function GameContainer() {
     const state = useSelector(state => state)
@@ -62,14 +62,7 @@ export function GameContainer() {
         dispatch(addWinner(name, moment().format("HH:mm; DD MMMM YYYY")))
     }
 
-    function startGameHandler() {
-        if (!state.difficulty.field || !state.playerName) {
-            dispatch(setMessage('choose difficulty and name'))
-            return
-        }
-
-        setStartParams()
-
+    function startInterval() {
         const squaresActivationSequence = setInterval(() => {
             const randomSquareNumber = getRandomSquare().next().value.squareNumber
             dispatch(setActiveSquare(randomSquareNumber, true))
@@ -79,6 +72,16 @@ export function GameContainer() {
                 global.checkWinner(squaresActivationSequence)
             }, state.difficulty.delay)
         }, state.difficulty.delay + 500)
+    }
+
+    function startGameHandler(e) {
+        e.preventDefault()
+        if (!state.difficulty.field || !state.playerName) {
+            dispatch(setMessage('choose difficulty and name'))
+            return
+        }
+        setStartParams()
+        startInterval()
     }
 
     return (

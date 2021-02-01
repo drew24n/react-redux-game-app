@@ -1,9 +1,13 @@
 import styles from './styles/App.module.scss';
-import {GameContainer} from "./components/GameContainer/GameContainer";
-import {LeaderBoard} from "./components/LeaderBoard";
 import {useEffect} from "react";
+import {useSelector} from "react-redux";
+import {GameContainer} from "./components/GameContainer";
+import {LeaderBoard} from "./components/GameComponents/LeaderBoard";
+import {Preloader} from "./components/Preloader";
 
 export function App() {
+    const state = useSelector(state => state)
+
     useEffect(() => {
         window.addEventListener("unhandledrejection", error => alert(error))
     }, [])
@@ -17,6 +21,7 @@ export function App() {
                 <GameContainer/>
                 <LeaderBoard/>
             </div>
+            {state.isFetching ? <Preloader/> : null}
         </main>
     )
 }

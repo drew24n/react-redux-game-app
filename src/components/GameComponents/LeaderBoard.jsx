@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
-import {getWinners} from "../redux/gameThunks";
+import {getWinners} from "../../redux/gameThunks";
 import {useEffect} from "react";
-import styles from '../styles/LeaderBoard.module.scss';
+import styles from '../../styles/LeaderBoard.module.scss';
 
 export function LeaderBoard() {
     const dispatch = useDispatch()
@@ -15,7 +15,7 @@ export function LeaderBoard() {
         <section className={styles.container}>
             <h3>Leader Board</h3>
             {winners.slice(0).reverse().map(w => <div className={styles.winner} key={w.id}>
-                <span>{w.winner}</span>
+                <span title={w.winner}>{w.winner}</span>
                 <span>{w.date}</span>
             </div>)}
         </section>

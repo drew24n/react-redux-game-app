@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import styles from '../../../styles/GameMessage.module.scss';
+import styles from '../../styles/GameMessage.module.scss';
 
 export function GameMessage() {
     const message = useSelector(state => state.message)

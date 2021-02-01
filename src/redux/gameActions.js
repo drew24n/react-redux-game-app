@@ -9,6 +9,7 @@ export const SET_GAME_COMPLETED = "SET_GAME_COMPLETED"
 export const SET_ACTIVE_SQUARE = "SET_ACTIVE_SQUARE"
 export const SET_COMPLETED_SQUARE = "SET_COMPLETED_SQUARE"
 export const SET_POINTS = "SET_POINTS"
+export const SET_IS_FETCHING = "SET_IS_FETCHING"
 export const RESET_SQUARES = "RESET_SQUARES"
 
 export const setSetting = (settings) => ({type: SET_SETTINGS, settings})
@@ -22,4 +23,5 @@ export const setIsGameCompleted = (isGameCompleted) => ({type: SET_GAME_COMPLETE
 export const setActiveSquare = (squareNumber, isActive) => ({type: SET_ACTIVE_SQUARE, squareNumber, isActive})
 export const setCompletedSquare = (squareNumber, isCompleted) => ({type: SET_COMPLETED_SQUARE, squareNumber, isCompleted})
 export const setPoints = (squareNumber, points) => ({type: SET_POINTS, squareNumber, points})
+export const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
 export const resetSquares = () => ({type: RESET_SQUARES})

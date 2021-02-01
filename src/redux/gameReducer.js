@@ -3,7 +3,7 @@ import {
     SET_ACTIVE_SQUARE, SET_COMPLETED_SQUARE,
     SET_DIFFICULTY,
     SET_GAME_COMPLETED,
-    SET_GAME_RUNNING,
+    SET_GAME_RUNNING, SET_IS_FETCHING,
     SET_MESSAGE,
     SET_PLAYER_NAME, SET_POINTS,
     SET_SETTINGS,
@@ -22,7 +22,8 @@ const initialState = {
     message: 'welcome',
     isGameRunning: false,
     isGameCompleted: false,
-    squareBlocks: []
+    squareBlocks: [],
+    isFetching: false
 }
 
 export const gameReducer = (state = initialState, action) => {
@@ -32,6 +33,10 @@ export const gameReducer = (state = initialState, action) => {
                 .map(key => ({mode: key, ...action.settings[key], active: false}))
             return {
                 ...state, settings: objToArray
+            }
+        case SET_IS_FETCHING:
+            return {
+                ...state, isFetching: action.isFetching
             }
         case SET_WINNERS:
             return {

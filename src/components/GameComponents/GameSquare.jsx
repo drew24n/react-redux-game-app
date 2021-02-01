@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
-import styles from '../../../styles/GameSquare.module.scss';
+import styles from '../../styles/GameSquare.module.scss';
 import {useEffect, useMemo} from "react";
-import {setPoints, setSquareBlocks} from "../../../redux/gameActions";
+import {setPoints, setSquareBlocks} from "../../redux/gameActions";
 
 export function GameSquare() {
     const state = useSelector(state => state)
